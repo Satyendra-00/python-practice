@@ -1,4 +1,7 @@
-a=input("Enter a value: ")
-print(a)
-b=input("Enter another value: ")
-print(b)
+n=int(input("Enter a value: "))
+def pattern(n):
+    if n==0:
+        return
+    print("*" * n)
+    pattern(n-1)
+pattern(n)
