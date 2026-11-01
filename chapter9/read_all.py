@@ -1,8 +1,11 @@
 """Read and display all the contents of a text file."""
 
-file_name = "file.txt"
+from pathlib import Path
 
-with open(file_name, "r", encoding="utf-8") as file:
-    content = file.read()
+file_name = Path("file.txt")
 
-print(content)
+if not file_name.exists():
+    print(f"File '{file_name}' does not exist.")
+else:
+    content = file_name.read_text(encoding="utf-8")
+    print(content)
