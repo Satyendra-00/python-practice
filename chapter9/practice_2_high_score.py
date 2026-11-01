@@ -6,7 +6,7 @@ import os
 def game():
     score = 0
 
-    answer = input("What is 2 + 2? ")
+    answer = input("What is 2 + 2? ").strip()
     if answer == "4":
         score += 10
 
@@ -27,7 +27,10 @@ if os.path.exists(file_name):
     with open(file_name, "r", encoding="utf-8") as file:
         saved_score = file.read().strip()
         if saved_score:
-            high_score = int(saved_score)
+            try:
+                high_score = int(saved_score)
+            except ValueError:
+                print("The saved high score is invalid. Starting from 0.")
 
 if score > high_score:
     with open(file_name, "w", encoding="utf-8") as file:
