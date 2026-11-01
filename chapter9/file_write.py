@@ -1,5 +1,9 @@
-st="hey you are amazing"
+"""Write a string to a text file."""
 
-f=open("file.txt","w")
-f.write(st)
-f.close()
+from pathlib import Path
+
+text = "hey you are amazing"
+file_path = Path("file.txt")
+
+file_path.write_text(text, encoding="utf-8")
+print(f"Saved text to '{file_path}'.")
