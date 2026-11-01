@@ -9,6 +9,7 @@ for number in range(2, 21):
     file_name = os.path.join(folder_name, f"table_{number}.txt")
 
     with open(file_name, "w", encoding="utf-8") as file:
+        file.write(f"Multiplication table of {number}\n")
         for multiplier in range(1, 11):
             file.write(f"{number} x {multiplier} = {number * multiplier}\n")
 
