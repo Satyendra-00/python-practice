@@ -1,23 +1,42 @@
-#snake water gun game 
+"""Play a round of snake, water, gun."""
+
 import random
-dict={1:"snake",2:"water",3:"gun"}
-user=int(input("enter you choice 1,2, 3 : "))
-computer=random.choice([1,2,3])
-print(f"you choose {dict[user]}\ncomputer choose {dict[computer]}")
-if computer==user:
-    print("its a draw")
-else:
-    if computer==1 and user == 2:
-        print("you loose")
-    elif computer==1 and user==3:
-        print("you winn")
-    elif computer==2 and user==1:
-        print("you win ")
-    elif computer==2 and user == 3:
-        print("you loose")
-    elif computer==3 and user==1:
-            print("you loose")
-    elif computer==3 and user==2:
-            print("you win ")
-    else:
-         print("something wrong")
+
+CHOICES = {1: "snake", 2: "water", 3: "gun"}
+
+
+def get_choice():
+    while True:
+        raw_choice = input("Enter your choice (1: snake, 2: water, 3: gun): ").strip()
+        try:
+            choice = int(raw_choice)
+        except ValueError:
+            print("Please enter a number: 1, 2, or 3.")
+            continue
+
+        if choice in CHOICES:
+            return choice
+        print("Choice must be 1, 2, or 3.")
+
+
+def play_round(user_choice, computer_choice):
+    if user_choice == computer_choice:
+        return "It's a draw."
+
+    user_wins = {
+        (1, 2),  # snake drinks water
+        (2, 3),  # water rusts gun
+        (3, 1),  # gun defeats snake
+    }
+    return "You win!" if (user_choice, computer_choice) in user_wins else "You lose."
+
+
+def main():
+    user_choice = get_choice()
+    computer_choice = random.choice(tuple(CHOICES))
+    print(f"You chose {CHOICES[user_choice]}; computer chose {CHOICES[computer_choice]}.")
+    print(play_round(user_choice, computer_choice))
+
+
+if __name__ == "__main__":
+    main()
