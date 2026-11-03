@@ -1,6 +1,8 @@
 """Play a small quiz and save a new high score."""
 
-import os
+from pathlib import Path
+
+HIGH_SCORE_FILE = Path("Hi-score.txt")
 
 
 def game():
@@ -17,24 +19,28 @@ def game():
     return score
 
 
-score = game()
-print(f"Your score: {score}")
+def load_high_score(path=HIGH_SCORE_FILE):
+    try:
+        saved_score = path.read_text(encoding="utf-8").strip()
+        return int(saved_score) if saved_score else 0
+    except FileNotFoundError:
+        return 0
+    except ValueError:
+        print("The saved high score is invalid. Starting from 0.")
+        return 0
 
-file_name = "Hi-score.txt"
-high_score = 0
 
-if os.path.exists(file_name):
-    with open(file_name, "r", encoding="utf-8") as file:
-        saved_score = file.read().strip()
-        if saved_score:
-            try:
-                high_score = int(saved_score)
-            except ValueError:
-                print("The saved high score is invalid. Starting from 0.")
+def main():
+    score = game()
+    print(f"Your score: {score}")
 
-if score > high_score:
-    with open(file_name, "w", encoding="utf-8") as file:
-        file.write(str(score))
-    print("New high score!")
-else:
-    print(f"The high score is still {high_score}.")
+    high_score = load_high_score()
+    if score > high_score:
+        HIGH_SCORE_FILE.write_text(str(score), encoding="utf-8")
+        print("New high score!")
+    else:
+        print(f"The high score is still {high_score}.")
+
+
+if __name__ == "__main__":
+    main()
