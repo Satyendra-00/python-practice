@@ -1,12 +1,29 @@
 """Count the lines and words in a text file."""
 
-file_name = "file.txt"
+import argparse
+from pathlib import Path
 
-with open(file_name, "r", encoding="utf-8") as file:
-    content = file.read()
 
-line_count = len(content.splitlines())
-word_count = len(content.split())
+def count_text(path):
+    content = path.read_text(encoding="utf-8")
+    return len(content.splitlines()), len(content.split())
 
-print(f"Lines: {line_count}")
-print(f"Words: {word_count}")
+
+def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("file", nargs="?", type=Path, default=Path("file.txt"))
+    args = parser.parse_args()
+
+    try:
+        lines, words = count_text(args.file)
+    except FileNotFoundError:
+        parser.error(f"file not found: {args.file}")
+    except UnicodeError:
+        parser.error(f"could not decode as UTF-8: {args.file}")
+
+    print(f"Lines: {lines}")
+    print(f"Words: {words}")
+
+
+if __name__ == "__main__":
+    main()
