@@ -4,10 +4,12 @@ import argparse
 from pathlib import Path
 
 
-def contains_python(path):
-    """Return True when 'python' occurs in the log, ignoring case."""
+def contains_python(path, term="python"):
+    """Return True when term occurs in the log, ignoring case."""
+    if not term:
+        raise ValueError("search term must not be empty")
     with path.open(encoding="utf-8") as log_file:
-        return any("python" in line.casefold() for line in log_file)
+        return any(term.casefold() in line.casefold() for line in log_file)
 
 
 def main():
