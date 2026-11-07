@@ -10,6 +10,9 @@ REPLACEMENT = "#####"
 
 def censor_words(path, words=CENSORED_WORDS, replacement=REPLACEMENT):
     """Replace whole-word matches (case-insensitively) and return the count."""
+    words = tuple(word for word in words if word)
+    if not words:
+        return 0
     text = path.read_text(encoding="utf-8")
     pattern = re.compile(
         r"\b(?:" + "|".join(re.escape(word) for word in words) + r")\b",
