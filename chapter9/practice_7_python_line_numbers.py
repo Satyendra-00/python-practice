@@ -4,13 +4,15 @@ import argparse
 from pathlib import Path
 
 
-def python_line_numbers(path):
-    """Return the one-based line numbers containing 'python' (case-insensitive)."""
+def python_line_numbers(path, term="python"):
+    """Return one-based line numbers containing term (case-insensitive)."""
+    if not term:
+        raise ValueError("search term must not be empty")
     with path.open(encoding="utf-8") as log_file:
         return [
             line_number
             for line_number, line in enumerate(log_file, start=1)
-            if "python" in line.casefold()
+            if term.casefold() in line.casefold()
         ]
 
 
