@@ -30,16 +30,22 @@ def load_high_score(path=HIGH_SCORE_FILE):
         return 0
 
 
+def save_high_score(score, path=HIGH_SCORE_FILE):
+    """Save score only when it beats the existing record."""
+    if score <= load_high_score(path):
+        return False
+    path.write_text(str(score), encoding="utf-8")
+    return True
+
+
 def main():
     score = game()
     print(f"Your score: {score}")
 
-    high_score = load_high_score()
-    if score > high_score:
-        HIGH_SCORE_FILE.write_text(str(score), encoding="utf-8")
+    if save_high_score(score):
         print("New high score!")
     else:
-        print(f"The high score is still {high_score}.")
+        print(f"The high score is still {load_high_score()}.")
 
 
 if __name__ == "__main__":
