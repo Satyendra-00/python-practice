@@ -6,6 +6,8 @@ from pathlib import Path
 
 
 def replace_word(path, word="Donkey", replacement="#####"):
+    if not word:
+        raise ValueError("word must not be empty")
     text = path.read_text(encoding="utf-8")
     updated_text, replacements = re.subn(
         rf"\b{re.escape(word)}\b", replacement, text, flags=re.IGNORECASE
