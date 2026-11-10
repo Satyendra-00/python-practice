@@ -2,6 +2,7 @@ import unittest
 
 from chapter8.p1 import greatest_of_three
 from chapter7.p4 import is_prime
+from chapter7.p6 import factorial
 
 
 class GreatestOfThreeTests(unittest.TestCase):
@@ -23,6 +24,17 @@ class PrimeNumberTests(unittest.TestCase):
         self.assertTrue(is_prime(2))
         self.assertTrue(is_prime(97))
         self.assertFalse(is_prime(100))
+
+
+class FactorialTests(unittest.TestCase):
+    def test_factorial_values(self):
+        self.assertEqual(factorial(0), 1)
+        self.assertEqual(factorial(1), 1)
+        self.assertEqual(factorial(6), 720)
+
+    def test_negative_input_is_rejected(self):
+        with self.assertRaises(ValueError):
+            factorial(-1)
 
 
 if __name__ == "__main__":
