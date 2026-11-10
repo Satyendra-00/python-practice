@@ -3,6 +3,7 @@ import unittest
 from chapter8.p1 import greatest_of_three
 from chapter7.p4 import is_prime
 from chapter7.p6 import factorial
+from chapter7.p5 import sum_to
 
 
 class GreatestOfThreeTests(unittest.TestCase):
@@ -35,6 +36,16 @@ class FactorialTests(unittest.TestCase):
     def test_negative_input_is_rejected(self):
         with self.assertRaises(ValueError):
             factorial(-1)
+
+
+class SumToTests(unittest.TestCase):
+    def test_sums_inclusive_range_from_zero(self):
+        self.assertEqual(sum_to(0), 0)
+        self.assertEqual(sum_to(5), 15)
+
+    def test_negative_input_is_rejected(self):
+        with self.assertRaises(ValueError):
+            sum_to(-1)
 
 
 if __name__ == "__main__":
