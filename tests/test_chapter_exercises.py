@@ -1,11 +1,14 @@
+import contextlib
+import io
 from importlib import import_module
 import unittest
+from unittest.mock import patch
 
 from chapter8.p1 import greatest_of_three
 from chapter7.p4 import is_prime
 from chapter7.p6 import factorial
 from chapter7.p5 import sum_to
-from projects.project1 import play_round
+from projects.project1 import main as game_main, play_round
 
 average_module = import_module("chapter8.functions&reccursion")
 
@@ -71,6 +74,20 @@ class GameRoundTests(unittest.TestCase):
     def test_returns_result_for_valid_choices(self):
         self.assertEqual(play_round(1, 2), "You win!")
         self.assertEqual(play_round(3, 3), "It's a draw.")
+
+
+class GameReplayTests(unittest.TestCase):
+    def test_play_again_starts_another_round(self):
+        output = io.StringIO()
+        with (
+            patch("projects.project1.get_choice", side_effect=[1, 2]),
+            patch("projects.project1.random.choice", return_value=2),
+            patch("builtins.input", side_effect=["y", "n"]),
+            contextlib.redirect_stdout(output),
+        ):
+            game_main()
+
+        self.assertEqual(output.getvalue().count("You chose"), 2)
 
 
 if __name__ == "__main__":

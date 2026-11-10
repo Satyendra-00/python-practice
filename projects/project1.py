@@ -34,10 +34,20 @@ def play_round(user_choice, computer_choice):
 
 
 def main():
-    user_choice = get_choice()
-    computer_choice = random.choice(tuple(CHOICES))
-    print(f"You chose {CHOICES[user_choice]}; computer chose {CHOICES[computer_choice]}.")
-    print(play_round(user_choice, computer_choice))
+    while True:
+        user_choice = get_choice()
+        computer_choice = random.choice(tuple(CHOICES))
+        print(
+            f"You chose {CHOICES[user_choice]}; "
+            f"computer chose {CHOICES[computer_choice]}."
+        )
+        print(play_round(user_choice, computer_choice))
+
+        answer = input("Play again? (y/n): ").strip().casefold()
+        while answer not in {"y", "n"}:
+            answer = input("Please enter y or n: ").strip().casefold()
+        if answer == "n":
+            break
 
 
 if __name__ == "__main__":
