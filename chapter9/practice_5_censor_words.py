@@ -18,7 +18,7 @@ def censor_words(path, words=CENSORED_WORDS, replacement=REPLACEMENT):
         r"\b(?:" + "|".join(re.escape(word) for word in words) + r")\b",
         flags=re.IGNORECASE,
     )
-    updated_text, count = pattern.subn(replacement, text)
+    updated_text, count = pattern.subn(lambda _: replacement, text)
     if count:
         path.write_text(updated_text, encoding="utf-8")
     return count

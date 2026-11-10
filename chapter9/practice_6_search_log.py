@@ -15,14 +15,17 @@ def contains_python(path, term="python"):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("log_file", nargs="?", type=Path, default=Path("log.txt"))
+    parser.add_argument("--term", default="python", help="term to search for")
     args = parser.parse_args()
     try:
-        found = contains_python(args.log_file)
+        found = contains_python(args.log_file, args.term)
     except FileNotFoundError:
         parser.error(f"log file not found: {args.log_file}")
     except UnicodeError:
         parser.error(f"could not decode as UTF-8: {args.log_file}")
-    print(f"'python' was {'found' if found else 'not found'} in {args.log_file}.")
+    except ValueError as error:
+        parser.error(str(error))
+    print(f"{args.term!r} was {'found' if found else 'not found'} in {args.log_file}.")
 
 
 if __name__ == "__main__":

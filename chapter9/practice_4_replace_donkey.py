@@ -10,7 +10,10 @@ def replace_word(path, word="Donkey", replacement="#####"):
         raise ValueError("word must not be empty")
     text = path.read_text(encoding="utf-8")
     updated_text, replacements = re.subn(
-        rf"\b{re.escape(word)}\b", replacement, text, flags=re.IGNORECASE
+        rf"\b{re.escape(word)}\b",
+        lambda _: replacement,
+        text,
+        flags=re.IGNORECASE,
     )
     if replacements:
         path.write_text(updated_text, encoding="utf-8")

@@ -6,8 +6,10 @@ from pathlib import Path
 
 def files_are_identical(first, second):
     """Compare files in binary mode so every byte must match."""
-    if not first.is_file() or not second.is_file():
-        raise FileNotFoundError("both paths must refer to existing files")
+    if not first.is_file():
+        raise FileNotFoundError(f"not an existing file: {first}")
+    if not second.is_file():
+        raise FileNotFoundError(f"not an existing file: {second}")
     if first.resolve() == second.resolve():
         return True
     with first.open("rb") as first_file, second.open("rb") as second_file:
@@ -28,7 +30,7 @@ def main():
     try:
         identical = files_are_identical(args.first, args.second)
     except FileNotFoundError as error:
-        parser.error(f"file not found: {error.filename}")
+        parser.error(str(error))
     print("The files have identical contents." if identical else "The files differ.")
 
 

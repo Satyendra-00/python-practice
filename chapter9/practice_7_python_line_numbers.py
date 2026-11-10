@@ -19,17 +19,20 @@ def python_line_numbers(path, term="python"):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("log_file", nargs="?", type=Path, default=Path("log.txt"))
+    parser.add_argument("--term", default="python", help="term to search for")
     args = parser.parse_args()
     try:
-        numbers = python_line_numbers(args.log_file)
+        numbers = python_line_numbers(args.log_file, args.term)
     except FileNotFoundError:
         parser.error(f"log file not found: {args.log_file}")
     except UnicodeError:
         parser.error(f"could not decode as UTF-8: {args.log_file}")
+    except ValueError as error:
+        parser.error(str(error))
     if numbers:
-        print("'python' found on line(s): " + ", ".join(map(str, numbers)))
+        print(f"{args.term!r} found on line(s): " + ", ".join(map(str, numbers)))
     else:
-        print(f"'python' was not found in {args.log_file}.")
+        print(f"{args.term!r} was not found in {args.log_file}.")
 
 
 if __name__ == "__main__":
