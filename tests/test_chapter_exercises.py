@@ -5,6 +5,7 @@ from chapter8.p1 import greatest_of_three
 from chapter7.p4 import is_prime
 from chapter7.p6 import factorial
 from chapter7.p5 import sum_to
+from projects.project1 import play_round
 
 average_module = import_module("chapter8.functions&reccursion")
 
@@ -58,6 +59,18 @@ class AverageTests(unittest.TestCase):
     def test_rejects_empty_collection(self):
         with self.assertRaises(ValueError):
             average_module.average([])
+
+
+class GameRoundTests(unittest.TestCase):
+    def test_rejects_choices_outside_the_game(self):
+        with self.assertRaises(ValueError):
+            play_round(0, 1)
+        with self.assertRaises(ValueError):
+            play_round(1, 4)
+
+    def test_returns_result_for_valid_choices(self):
+        self.assertEqual(play_round(1, 2), "You win!")
+        self.assertEqual(play_round(3, 3), "It's a draw.")
 
 
 if __name__ == "__main__":

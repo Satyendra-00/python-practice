@@ -20,6 +20,8 @@ def get_choice():
 
 
 def play_round(user_choice, computer_choice):
+    if user_choice not in CHOICES or computer_choice not in CHOICES:
+        raise ValueError("choices must be 1, 2, or 3")
     if user_choice == computer_choice:
         return "It's a draw."
 
