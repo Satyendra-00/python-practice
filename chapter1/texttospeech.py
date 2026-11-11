@@ -1,8 +1,13 @@
-import chapter1.pyttsx3 as pyttsx3
-engine = pyttsx3.init()
+"""Speak a short example using the third-party ``pyttsx3`` package."""
 
-# For Mac, If you face error related to "pyobjc" when running the `init()` method :
-# Install 9.0.1 version of pyobjc : "pip install pyobjc>=9.0.1"
+import pyttsx3
 
-engine.say("I will speak this text")
-engine.runAndWait()
+
+def main():
+    engine = pyttsx3.init()
+    engine.say("I will speak this text")
+    engine.runAndWait()
+
+
+if __name__ == "__main__":
+    main()
