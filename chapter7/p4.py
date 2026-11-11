@@ -10,7 +10,13 @@ def is_prime(number):
 
 
 def main():
-    number = int(input("Enter a number: "))
+    while True:
+        try:
+            number = int(input("Enter a number: ").strip())
+        except ValueError:
+            print("Please enter a whole number.")
+            continue
+        break
     print("Prime number" if is_prime(number) else "Not a prime number")
 
 
