@@ -1,5 +1,7 @@
 def sum_of_n(n):
-    if n <= 0:
+    if n < 0:
+        raise ValueError("n must be non-negative")
+    if n == 0:
         return 0
     else:
         return n + sum_of_n(n - 1)
