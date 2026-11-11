@@ -34,6 +34,7 @@ def save_high_score(score, path=HIGH_SCORE_FILE):
     """Save score only when it beats the existing record."""
     if score <= load_high_score(path):
         return False
+    path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(str(score), encoding="utf-8")
     return True
 
