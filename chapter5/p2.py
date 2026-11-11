@@ -1,19 +1,3 @@
-#input 8 numbers from user and print set of unique numbers
-s=set()
-num=input("enter 1st number: ")
-s.add(num)
-num=input("enter 2nd number: ")
-s.add(num)
-num=input("enter 3rd number: ")
-s.add(num)
-num=input("enter 4th number: ")
-s.add(num)
-num=input("enter 5th number: ")
-s.add(num)
-num=input("enter 6th number: ")
-s.add(num)
-num=input("enter 7th number: ")
-s.add(num)
-num=input("enter 8th number: ")
-s.add(num)
-print("Set of unique numbers:", s)
+# Input eight numbers and print the set of unique numeric values.
+numbers = {int(input(f"Enter number {index}: ")) for index in range(1, 9)}
+print("Set of unique numbers:", numbers)
