@@ -1,12 +1,10 @@
-"""Speak a short example using the third-party ``pyttsx3`` package."""
+"""Compatibility entry point for the speech demo."""
 
-import pyttsx3
+from chapter1.speech_demo import main
 
 
-def main():
-    engine = pyttsx3.init()
-    engine.say("I will speak this text")
-    engine.runAndWait()
+if __name__ == "__main__":
+    main()
 
 
 if __name__ == "__main__":
