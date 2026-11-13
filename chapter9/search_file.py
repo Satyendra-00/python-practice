@@ -7,7 +7,7 @@ from pathlib import Path
 def find_matches(path, search_word):
     with path.open(encoding="utf-8") as file:
         return [
-            (line_number, line.rstrip())
+            (line_number, line.rstrip("\r\n"))
             for line_number, line in enumerate(file, start=1)
             if search_word.casefold() in line.casefold()
         ]
