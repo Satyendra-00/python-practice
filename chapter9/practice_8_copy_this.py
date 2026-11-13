@@ -6,7 +6,9 @@ from pathlib import Path
 
 def copy_text_file(source, destination):
     """Copy UTF-8 text while preserving line endings exactly."""
-    if source.resolve() == destination.resolve():
+    if source.resolve() == destination.resolve() or (
+        destination.exists() and source.samefile(destination)
+    ):
         raise ValueError("source and destination must be different files")
     with source.open("r", encoding="utf-8", newline="") as source_file:
         content = source_file.read()
