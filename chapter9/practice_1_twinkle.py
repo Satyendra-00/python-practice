@@ -1,13 +1,28 @@
-"""Check whether poems.txt contains the word 'twinkle'."""
+"""Check whether a poem file contains the word 'twinkle'."""
 
-file_name = "poems.txt"
+import argparse
+from pathlib import Path
 
-with open(file_name, "r", encoding="utf-8") as file:
-    poem = file.read()
 
-words = [word.strip(".,!?;:'\"()[]{}").lower() for word in poem.split()]
+def contains_twinkle(path):
+    """Return whether a whitespace-delimited token is exactly ``twinkle``."""
+    text = path.read_text(encoding="utf-8")
+    words = (word.strip(".,!?;:'\"()[]{}") for word in text.split())
+    return any(word.casefold() == "twinkle" for word in words)
 
-if "twinkle" in words:
-    print("The word 'twinkle' is present in the file.")
-else:
-    print("The word 'twinkle' is not present in the file.")
+
+def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("file", nargs="?", type=Path, default=Path("poems.txt"))
+    args = parser.parse_args()
+    try:
+        found = contains_twinkle(args.file)
+    except FileNotFoundError:
+        parser.error(f"file not found: {args.file}")
+    except UnicodeError:
+        parser.error(f"could not decode as UTF-8: {args.file}")
+    print(f"The word 'twinkle' is {'present' if found else 'not present'} in the file.")
+
+
+if __name__ == "__main__":
+    main()
