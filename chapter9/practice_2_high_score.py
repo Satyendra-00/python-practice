@@ -32,6 +32,8 @@ def load_high_score(path=HIGH_SCORE_FILE):
 
 def save_high_score(score, path=HIGH_SCORE_FILE):
     """Save score only when it beats the existing record."""
+    if not isinstance(score, int) or isinstance(score, bool) or score < 0:
+        raise ValueError("score must be a non-negative integer")
     if score <= load_high_score(path):
         return False
     path.parent.mkdir(parents=True, exist_ok=True)
