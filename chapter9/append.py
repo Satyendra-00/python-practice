@@ -14,8 +14,8 @@ def main():
     parser.add_argument("file", nargs="?", type=Path, default=Path("file.txt"))
     args = parser.parse_args()
 
-    data = input("Enter the data to append: ").strip()
-    if not data:
+    data = input("Enter the data to append: ")
+    if not data.strip():
         print("No data entered. Nothing was appended.")
         return
 
