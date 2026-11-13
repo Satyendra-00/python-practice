@@ -5,8 +5,13 @@ from pathlib import Path
 
 
 def count_text(path):
-    content = path.read_text(encoding="utf-8")
-    return len(content.splitlines()), len(content.split())
+    lines = 0
+    words = 0
+    with path.open(encoding="utf-8") as text_file:
+        for line in text_file:
+            lines += 1
+            words += len(line.split())
+    return lines, words
 
 
 def main():
