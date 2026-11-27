@@ -6,12 +6,13 @@ file_name = Path("file.txt")
 
 try:
     with file_name.open("r", encoding="utf-8") as file:
-        lines = file.readlines()
+        found_line = False
+        for line_number, line in enumerate(file, start=1):
+            found_line = True
+            content = line.rstrip("\r\n")
+            print(f"{line_number}: {content}")
 
-    if not lines:
+    if not found_line:
         print("The file is empty.")
-    else:
-        for line_number, line in enumerate(lines, start=1):
-            print(f"{line_number}: {line.rstrip()}")
 except FileNotFoundError:
     print(f"File '{file_name}' does not exist.")
