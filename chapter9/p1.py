@@ -13,7 +13,9 @@ def contains_twinkle(path):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("file", nargs="?", type=Path, default=Path("poems.txt"))
+    parser.add_argument(
+        "file", nargs="?", type=Path, default=Path(__file__).with_name("poems.txt")
+    )
     args = parser.parse_args()
     try:
         found = contains_twinkle(args.file)
